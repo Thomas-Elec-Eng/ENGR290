@@ -23,32 +23,31 @@ uint16_t Read_ADC(uint8_t sel){
   return (high << 8) | low;
 }
 
-// sample main just to test if output is accurate to distance perception 
+// sample main to try to get LED responding. Did not manage to get led to work 
+// but at least distance perception is pretty accurate for 16 cm 
 
 // int main(void) {
 //     USART_Init();
 //     ADC_init();
     
-//     char string[10];
+//     DDRD |= (1 << PD5);
+    
+//     char string[40];
     
 //     while(1) {
-//         uint16_t adc_val = Read_ADC(1); // Read from analog pin A1 (ADC1)
-        
-//         // Threshold Logic based on targets
-//         if (adc_val == 6) {
-//             
-//             USART_Transmit_more("Object not recognizable too close OR too far\r\n");
-//         } 
-//         else if (adc_val < 400) {
-//             
-//             USART_Transmit_more("Object closer than 20cm\r\n");
-//         } 
-//         else {
-//             // beyod 20 cm but not soo far it cannot be detected
-//             USART_Transmit_more("Object beyond 20cm but closer than 35cm\r\n");
+//         uint16_t adc_val = Read_ADC(1); // Read sensor on pin A1
+      
+//         if (adc_val >= 610) {
+//             PORTD |= (1 << PD5);  // Set pin HIGH (LED ON)
+//             sprintf(string, "\r\nADC: %d -> <= 16cm (LED ON) ", adc_val);
+//         }
+//         else  {
+//             PORTD &= ~(1 << PD5); // Set pin LOW (LED OFF)
+//             sprintf(string, "\r\nADC: %d -> >= 49cm (LED OFF)", adc_val);
 //         }
         
-//         _delay_ms(500); 
+//         USART_Transmit_more(string);
+//         _delay_ms(200);
 //     }
 // }
 
