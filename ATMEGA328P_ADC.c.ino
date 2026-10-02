@@ -23,6 +23,8 @@ uint16_t Read_ADC(uint8_t sel){
   return (high << 8) | low;
 }
 
+// sample main just to test if output is accurate to distance perception 
+
 // int main(void) {
 //     USART_Init();
 //     ADC_init();
@@ -32,21 +34,21 @@ uint16_t Read_ADC(uint8_t sel){
 //     while(1) {
 //         uint16_t adc_val = Read_ADC(1); // Read from analog pin A1 (ADC1)
         
-//         // Threshold Logic based on assignment targets
-//         if (adc_val >= 307) {
-//             // Target 1: Object is at or closer than 16 cm (High proximity)
-//             USART_Transmit_more("Object CLOSE (<= 16cm) - LED 100%\r\n");
+//         // Threshold Logic based on targets
+//         if (adc_val == 6) {
+//             
+//             USART_Transmit_more("Object not recognizable too close OR too far\r\n");
 //         } 
-//         else if (adc_val < 123) {
-//             // Target 2: Object is farther than 49 cm (Low proximity / out of range)
-//             USART_Transmit_more("Object FAR (> 49cm) - LED 0%\r\n");
+//         else if (adc_val < 400) {
+//             
+//             USART_Transmit_more("Object closer than 20cm\r\n");
 //         } 
 //         else {
-//             // Intermediate zone (between 16 cm and 49 cm)
-//             USART_Transmit_more("Object in intermediate range\r\n");
+//             // beyod 20 cm but not soo far it cannot be detected
+//             USART_Transmit_more("Object beyond 20cm but closer than 35cm\r\n");
 //         }
         
-//         _delay_ms(500); // Slow down output stream for readability
+//         _delay_ms(500); 
 //     }
 // }
 
