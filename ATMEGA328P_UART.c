@@ -1,8 +1,8 @@
 //ENGR 290 Team 5 UART functions
 
-#define Fosc 16000000UL
+#define F_CPU 16000000UL
 #define BAUD 9600
-#define UBRR ((Fosc / (BAUD * 16UL)) - 1)
+#define UBRR ((F_CPU / (BAUD * 16UL)) - 1)
 
 #include "ATMEGA328P.h"
 
