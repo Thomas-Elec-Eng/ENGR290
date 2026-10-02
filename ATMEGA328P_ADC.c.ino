@@ -1,8 +1,9 @@
 /*ENGR 290 TEAM 5
 ADC control*/
-
-#include "ATMEGA328P.h"
-#include "ATMEGA328P_UART.c"
+#include <avr/io.h>
+#include <math.h>
+#include <util/delay.h>
+//#include "ATMEGA328P_UART.c"
 
 void ADC_init(){
   ADMUX = (0<<REFS1)|(0<<REFS0)|(0<<ADLAR); // 010- ----
@@ -22,6 +23,33 @@ uint16_t Read_ADC(uint8_t sel){
   return (high << 8) | low;
 }
 
+// int main(void) {
+//     USART_Init();
+//     ADC_init();
+    
+//     char string[10];
+    
+//     while(1) {
+//         uint16_t adc_val = Read_ADC(1); // Read from analog pin A1 (ADC1)
+        
+//         // Threshold Logic based on assignment targets
+//         if (adc_val >= 307) {
+//             // Target 1: Object is at or closer than 16 cm (High proximity)
+//             USART_Transmit_more("Object CLOSE (<= 16cm) - LED 100%\r\n");
+//         } 
+//         else if (adc_val < 123) {
+//             // Target 2: Object is farther than 49 cm (Low proximity / out of range)
+//             USART_Transmit_more("Object FAR (> 49cm) - LED 0%\r\n");
+//         } 
+//         else {
+//             // Intermediate zone (between 16 cm and 49 cm)
+//             USART_Transmit_more("Object in intermediate range\r\n");
+//         }
+        
+//         _delay_ms(500); // Slow down output stream for readability
+//     }
+// }
+
 
 
 int main(){
@@ -34,5 +62,7 @@ int main(){
     //USART_Transmit_more(int_to_char(195));
     sprintf(string, "%d", Read_ADC(1));
     USART_Transmit_more(string);
+   _delay_ms(500); // Slow down output stream for readability
+
   }
 }
