@@ -4,7 +4,7 @@
 #define BAUD 9600
 #define UBRR ((F_CPU / (BAUD * 16UL)) - 1)
 
-#include "ATMEGA328P.h"
+#include <avr/io.h>
 
 void USART_Init(){
 /*Set baud rate */
