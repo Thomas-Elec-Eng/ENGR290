@@ -23,47 +23,43 @@ uint16_t Read_ADC(uint8_t sel){
   return (high << 8) | low;
 }
 
-// sample main to try to get LED responding. Did not manage to get led to work 
-// but at least distance perception is pretty accurate for 16 cm 
-
-// int main(void) {
-//     USART_Init();
-//     ADC_init();
+int main(void) {
+    USART_Init();
+    ADC_init();
     
-//     DDRD |= (1 << PD5);
+    DDRB |= (1 << PB3);
+    PORTB |= (1 << PB3);
     
-//     char string[40];
+    char string[40];
     
-//     while(1) {
-//         uint16_t adc_val = Read_ADC(1); // Read sensor on pin A1
+    while(1) {
+        uint16_t adc_val = Read_ADC(1); // Read sensor on pin A1
       
-//         if (adc_val >= 610) {
-//             PORTD |= (1 << PD5);  // Set pin HIGH (LED ON)
-//             sprintf(string, "\r\nADC: %d -> <= 16cm (LED ON) ", adc_val);
-//         }
-//         else  {
-//             PORTD &= ~(1 << PD5); // Set pin LOW (LED OFF)
-//             sprintf(string, "\r\nADC: %d -> >= 49cm (LED OFF)", adc_val);
-//         }
+        if (adc_val >= 610) {
+            PORTB &= ~(1 << PB3);  // Set pin HIGH (LED ON)
+            sprintf(string, "\r\nADC: %d -> <= 16cm (LED ON) ", adc_val);
+        }
+        else  {
+            PORTB |= (1 << PB3); // Set pin LOW (LED OFF)
+            sprintf(string, "\r\nADC: %d -> >= 49cm (LED OFF)", adc_val);
+        }
         
-//         USART_Transmit_more(string);
-//         _delay_ms(200);
-//     }
-// }
-
-
-
-int main(){
-  USART_Init();
-  ADC_init();
-  char string[6];
-  //USART_Transmit_more("IR range finder test raw value");
-  while(true){
-    USART_Transmit_more("\nPass ");
-    //USART_Transmit_more(int_to_char(195));
-    sprintf(string, "%d", Read_ADC(1));
-    USART_Transmit_more(string);
-   _delay_ms(500); // Slow down output stream for readability
-
-  }
+        USART_Transmit_more(string);
+        _delay_ms(200);
+    }
 }
+
+// int main(){
+//   USART_Init();
+//   ADC_init();
+//   char string[6];
+//   //USART_Transmit_more("IR range finder test raw value");
+//   while(true){
+//     USART_Transmit_more("\nPass ");
+//     //USART_Transmit_more(int_to_char(195));
+//     sprintf(string, "%d", Read_ADC(1));
+//     USART_Transmit_more(string);
+//    _delay_ms(500); // Slow down output stream for readability
+
+//   }
+// }
